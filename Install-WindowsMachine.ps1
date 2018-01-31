@@ -135,8 +135,6 @@ function InstallVSExtension($extensionUrl, $extensionFileName, $vsVersion) {
 
 if( $tools ) {
 
-    choco install -y lastpass
-
     choco install -y 7zip
 
     choco install -y adobereader
@@ -146,8 +144,6 @@ if( $tools ) {
     choco install -y firefox -installArgs l=en-US
 	
 	choco install -y telegram.install
-
-    choco install -y spotify
     
 	choco install -y notepadplusplus.install
 }
@@ -165,7 +161,11 @@ if($installVs) {
     if($vsVersion -eq "2017") {
         switch ($vsEdition) {
             "Community" {
-                choco install visualstudio2017community -y --package-parameters "--add Microsoft.VisualStudio.Workload.Azure --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.Node --add --includeRecommended --includeOptional --passive --locale en-US"
+                choco install visualstudio2017community -y --package-parameters "--passive --locale en-US"
+                choco install visualstudio2017buildtools -y --package-parameters "--passive --locale en-US"
+                choco install visualstudio2017-workload-netweb -y --package-parameters "--passive --locale en-US"
+                choco install visualstudio2017-workload-azure -y --package-parameters "--passive --locale en-US"
+                choco install visualstudio2017-workload-node -y --package-parameters "--passive --locale en-US"
             }
             "Professional" {
                 choco install visualstudio2017professional -y --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
