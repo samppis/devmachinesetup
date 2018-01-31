@@ -5,33 +5,22 @@ The script is mainly using Chocolatey as a package manager for Windows out of a 
 
 [Click here to get to the full documentation on my blog!](http://blog.mszcool.com/index.php/2016/02/my-developer-machine-setup-automation-script-chocolatey-powershell-published/)
 
-First I do install some pre-requisites, typically the following Windows Components: 
-* .NET Framework 3.5 
-* Hyper-V for virtualization and e.g. phone emulators
-
-After that, I typically perform the following actions on a blank Windows machine:
 
     # Enable Chocolatey and my script execution without being blocked
     Set-ExecutionPolicy Unrestricted
     
-    # 1st Script Execution - Installing Chocolatey 
-    .\Install-WindowsMachine.ps1 -installChoco 
+    # 1st Script Execution - Install chocolatey and other requirements
+    .\Install-WindowsMachine.ps1 -prepOS 
     
     # 2nd Script Execution - development environments
     # Visual Studio I often install manually as mostly I need the Enterprise Edition
-    .\Install-WindowsMachine.ps1 -installVs -vsVersion 2015 -installOtherIDE
+    .\Install-WindowsMachine.ps1 -installVs -vsVersion 2017
     
     # 3rd Script Execution - remaining tools I typically use
-    .\Install-WindowsMachine.ps1 -tools -ittools -dev -data
+    .\Install-WindowsMachine.ps1 -tools -graphictools -dev
     
-    # 4th Script Execution - Needs opening up a NEW PowerShell Window
-    #                        Installs Visual Studio Extensions, SDKs etc. that
-    #                        depend on the previous things being in the path.
-    #                        Also clonse github-repository I typically use.
-    .\Install-WindowsMachine.ps1 -dev2 -vsext -vsVersion 2015 -cloneRepos
-    
-    # 5th Script Execution - Install Database servers (I don't do that on most machines)
-    .\Install-WindowsMachine.ps1 -dataSrv
+    # 4th Script Execution - Could need opening up a NEW PowerShell Window
+    .\Install-WindowsMachine.ps1 -vscodeext -vsext -vsVersion 2017
     
 There are many thoughts for improving the script. E.g. one I have is putting this all into a PowerShell workflow that can be restarted even after machine reboots from where it stopped before. But that will need some time - and since this is a spare-time project, I don't know when I'll get to it.
 
